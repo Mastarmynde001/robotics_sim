@@ -20,9 +20,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Astral uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
+        uses: astral-sh/setup-uv@v5
 
       - name: Set up Virtual Environment & Install Dependencies
         run: |
