@@ -1,0 +1,42 @@
+name: C++ & Python CI Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Astral uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Virtual Environment & Install Dependencies
+        run: |
+          uv venv
+          uv pip install pybind11 pybullet matplotlib pandas numpy
+
+      - name: Configure CMake
+        run: |
+          uv run cmake -B build -DCMAKE_PREFIX_PATH="$(uv run python -c 'import pybind11; print(pybind11.get_cmake_dir())')"
+
+      - name: Build C++ Shared Module
+        run: |
+          cmake --build build --config Release
+
+      - name: Run Headless C++ Pybind11 Verification
+        run: |
+          uv run python -c 'import robotics_sim; kf = robotics_sim.KalmanFilter3D(1e-4, 1e-4, 0.0064); pid = robotics_sim.PIDController(35.0, 0.5, 12.0, 20.0, 150.0); print("CI SUCCESS: C++ Engine and Pybind11 bindings verified successfully!")'

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="quadrotor">
+  <link name="base_link">
+    <!-- Inertial dynamics for 0.5kg drone -->
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.0023" ixy="0" ixz="0" iyy="0.0023" iyz="0" izz="0.004"/>
+    </inertial>
+
+    <!-- Central Avionics Hub -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.12 0.12 0.04"/>
+      </geometry>
+      <material name="dark_chassis">
+        <color rgba="0.15 0.15 0.15 1.0"/>
+      </material>
+    </visual>
+
+    <!-- Arm +X (Front Right) -->
+    <visual>
+      <origin xyz="0.09 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <cylinder radius="0.006" length="0.08"/>
+      </geometry>
+      <material name="arm_material">
+        <color rgba="0.4 0.4 0.4 1.0"/>
+      </material>
+    </visual>
+
+    <!-- Arm -X (Rear Left) -->
+    <visual>
+      <origin xyz="-0.09 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+        <cylinder radius="0.006" length="0.08"/>
+      </geometry>
+      <material name="arm_material"/>
+    </visual>
+
+    <!-- Arm +Y (Front Left) -->
+    <visual>
+      <origin xyz="0 0.09 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.006" length="0.08"/>
+      </geometry>
+      <material name="arm_material"/>
+    </visual>
+
+    <!-- Arm -Y (Rear Right) -->
+    <visual>
+      <origin xyz="0 -0.09 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.006" length="0.08"/>
+      </geometry>
+      <material name="arm_material"/>
+    </visual>
+
+    <!-- Front Rotors (Green) -->
+    <visual>
+      <origin xyz="0.13 0 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.004"/>
+      </geometry>
+      <material name="green_rotor">
+        <color rgba="0.0 1.0 0.4 0.8"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="0 0.13 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.004"/>
+      </geometry>
+      <material name="green_rotor"/>
+    </visual>
+
+    <!-- Rear Rotors (Red) -->
+    <visual>
+      <origin xyz="-0.13 0 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.004"/>
+      </geometry>
+      <material name="red_rotor">
+        <color rgba="0.9 0.2 0.2 0.8"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="0 -0.13 0.015" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.06" length="0.004"/>
+      </geometry>
+      <material name="red_rotor"/>
+    </visual>
+
+    <!-- Collision Boundary -->
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.30 0.30 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
